@@ -1,0 +1,365 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class AudienciaCanais {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Map<Integer, Integer> audiencias = new HashMap<>();
+        int canal;
+
+        System.out.println("Digite o número do canal (0 para encerrar):");
+        while ((canal = scanner.nextInt()) != 0) {
+            System.out.print("Quantidade de pessoas assistindo o canal " + canal + ": ");
+            int pessoas = scanner.nextInt();
+            audiencias.put(canal, audiencias.getOrDefault(canal, 0) + pessoas);
+        }
+
+        int totalPessoas = audiencias.values().stream().mapToInt(Integer::intValue).sum();
+        System.out.println("\nAudiência por canal:");
+        for (Map.Entry<Integer, Integer> entry : audiencias.entrySet()) {
+            double porcentagem = (entry.getValue() * 100.0) / totalPessoas;
+            System.out.printf("Canal %d: %.2f%%\n", entry.getKey(), porcentagem);
+        }
+    }
+}
+import java.util.Scanner;
+
+public class MenuMedias {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int opcao;
+
+        do {
+            System.out.println("Menu de opções:");
+            System.out.println("1. Média Aritmética");
+            System.out.println("2. Média Ponderada");
+            System.out.println("3. Sair");
+            System.out.print("Digite sua opção: ");
+            opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Digite duas notas: ");
+                    double nota1 = scanner.nextDouble();
+                    double nota2 = scanner.nextDouble();
+                    double mediaAritmetica = (nota1 + nota2) / 2;
+                    System.out.println("Média Aritmética: " + mediaAritmetica);
+                    break;
+                case 2:
+                    System.out.print("Digite três notas e seus respectivos pesos: ");
+                    double n1 = scanner.nextDouble();
+                    double p1 = scanner.nextDouble();
+                    double n2 = scanner.nextDouble();
+                    double p2 = scanner.nextDouble();
+                    double n3 = scanner.nextDouble();
+                    double p3 = scanner.nextDouble();
+                    double mediaPonderada = (n1 * p1 + n2 * p2 + n3 * p3) / (p1 + p2 + p3);
+                    System.out.println("Média Ponderada: " + mediaPonderada);
+                    break;
+                case 3:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        } while (opcao != 3);
+    }
+}
+import java.util.Scanner;
+
+public class AnalisePessoas {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int idadeSoma = 0, maisDe90kg = 0, entreAltura = 0;
+        final int TOTAL_PESSOAS = 10;
+
+        for (int i = 1; i <= TOTAL_PESSOAS; i++) {
+            System.out.println("Pessoa " + i);
+            System.out.print("Idade: ");
+            int idade = scanner.nextInt();
+            System.out.print("Peso (kg): ");
+            double peso = scanner.nextDouble();
+            System.out.print("Altura (m): ");
+            double altura = scanner.nextDouble();
+
+            idadeSoma += idade;
+            if (peso > 90 && altura < 1.60) maisDe90kg++;
+            if (altura >= 1.80 && altura <= 1.90) entreAltura++;
+        }
+
+        System.out.println("\nMédia das idades: " + (idadeSoma / (double) TOTAL_PESSOAS));
+        System.out.println("Total com mais de 90kg e menos de 1.60m: " + maisDe90kg);
+        System.out.println("Percentual entre 1.80m e 1.90m: " + (entreAltura * 100.0 / TOTAL_PESSOAS) + "%");
+    }
+}
+public class SomaSerie {
+    public static void main(String[] args) {
+        double soma = 0;
+
+        int numerador = 1000;
+        for (int i = 1; i <= 50; i++) {
+            soma += (double) numerador / i;
+            numerador -= 3;
+        }
+
+        System.out.printf("A soma dos 50 primeiros termos é: %.2f\n", soma);
+    }
+}
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Medico {
+    String nome;
+    String especialidade;
+    String crm;
+
+    public Medico(String nome, String especialidade, String crm) {
+        this.nome = nome;
+        this.especialidade = especialidade;
+        this.crm = crm;
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + nome + ", Especialidade: " + especialidade + ", CRM: " + crm;
+    }
+}
+
+public class CadastroMedicos {
+    public static void main(String[] args) {
+        ArrayList<Medico> medicos = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Quantos médicos deseja cadastrar? ");
+        int total = scanner.nextInt();
+        scanner.nextLine(); // Consumir a quebra de linha
+
+        for (int i = 0; i < total; i++) {
+            System.out.println("Médico " + (i + 1) + ":");
+            System.out.print("Nome: ");
+            String nome = scanner.nextLine();
+            System.out.print("Especialidade: ");
+            String especialidade = scanner.nextLine();
+            System.out.print("CRM: ");
+            String crm = scanner.nextLine();
+            medicos.add(new Medico(nome, especialidade, crm));
+        }
+
+        System.out.println("\nMédicos cadastrados:");
+        for (Medico medico : medicos) {
+            System.out.println(medico);
+        }
+    }
+}
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Paciente {
+    String nome;
+    int idade;
+    String cpf;
+
+    public Paciente(String nome, int idade, String cpf) {
+        this.nome = nome;
+        this.idade = idade;
+        this.cpf = cpf;
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + nome + ", Idade: " + idade + ", CPF: " + cpf;
+    }
+}
+
+public class CadastroPacientes {
+    public static void main(String[] args) {
+        ArrayList<Paciente> pacientes = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Quantos pacientes deseja cadastrar? ");
+        int total = scanner.nextInt();
+        scanner.nextLine(); // Consumir a quebra de linha
+
+        for (int i = 0; i < total; i++) {
+            System.out.println("Paciente " + (i + 1) + ":");
+            System.out.print("Nome: ");
+            String nome = scanner.nextLine();
+            System.out.print("Idade: ");
+            int idade = scanner.nextInt();
+            scanner.nextLine(); // Consumir a quebra de linha
+            System.out.print("CPF: ");
+            String cpf = scanner.nextLine();
+            pacientes.add(new Paciente(nome, idade, cpf));
+        }
+
+        System.out.println("\nPacientes cadastrados:");
+        for (Paciente paciente : pacientes) {
+            System.out.println(paciente);
+        }
+    }
+}import java.util.ArrayList;
+import java.util.Scanner;
+
+// Classe Produto
+class Produto {
+    int codigo;
+    String nome;
+    double valorUnitario;
+    String tipoUnidade;
+
+    public Produto(int codigo, String nome, double valorUnitario, String tipoUnidade) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.valorUnitario = valorUnitario;
+        this.tipoUnidade = tipoUnidade;
+    }
+
+    @Override
+    public String toString() {
+        return "Código: " + codigo + ", Nome: " + nome + 
+               ", Valor Unitário: R$" + valorUnitario + ", Unidade: " + tipoUnidade;
+    }
+}
+
+public class Lojinha {
+    static ArrayList<Produto> produtos = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int opcao;
+
+        do {
+            System.out.println("\n===== MENU DA LOJINHA =====");
+            System.out.println("1. Cadastrar Produto");
+            System.out.println("2. Alterar Produto");
+            System.out.println("3. Excluir Produto");
+            System.out.println("4. Listar Produtos");
+            System.out.println("5. Realizar Venda");
+            System.out.println("6. Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine(); // Consumir quebra de linha
+
+            switch (opcao) {
+                case 1 -> cadastrarProduto();
+                case 2 -> alterarProduto();
+                case 3 -> excluirProduto();
+                case 4 -> listarProdutos();
+                case 5 -> realizarVenda();
+                case 6 -> System.out.println("Encerrando sistema...");
+                default -> System.out.println("Opção inválida! Tente novamente.");
+            }
+        } while (opcao != 6);
+    }
+
+    // Função para cadastrar produto
+    static void cadastrarProduto() {
+        System.out.print("Código do Produto: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Consumir quebra de linha
+
+        System.out.print("Nome do Produto: ");
+        String nome = scanner.nextLine();
+
+        System.out.print("Valor Unitário: ");
+        double valor = scanner.nextDouble();
+        scanner.nextLine(); // Consumir quebra de linha
+
+        System.out.print("Tipo de Unidade: ");
+        String unidade = scanner.nextLine();
+
+        produtos.add(new Produto(codigo, nome, valor, unidade));
+        System.out.println("Produto cadastrado com sucesso!");
+    }
+
+    // Função para alterar produto
+    static void alterarProduto() {
+        System.out.print("Digite o código do produto a ser alterado: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Consumir quebra de linha
+
+        for (Produto p : produtos) {
+            if (p.codigo == codigo) {
+                System.out.print("Novo Nome: ");
+                p.nome = scanner.nextLine();
+
+                System.out.print("Novo Valor Unitário: ");
+                p.valorUnitario = scanner.nextDouble();
+                scanner.nextLine(); // Consumir quebra de linha
+
+                System.out.print("Nova Unidade: ");
+                p.tipoUnidade = scanner.nextLine();
+
+                System.out.println("Produto alterado com sucesso!");
+                return;
+            }
+        }
+        System.out.println("Produto não encontrado.");
+    }
+
+    // Função para excluir produto
+    static void excluirProduto() {
+        System.out.print("Digite o código do produto a ser excluído: ");
+        int codigo = scanner.nextInt();
+
+        produtos.removeIf(p -> p.codigo == codigo);
+        System.out.println("Produto excluído (se existia).");
+    }
+
+    // Função para listar produtos
+    static void listarProdutos() {
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+        } else {
+            System.out.println("\n===== LISTA DE PRODUTOS =====");
+            for (Produto p : produtos) {
+                System.out.println(p);
+            }
+        }
+    }
+
+    // Função para realizar venda
+    static void realizarVenda() {
+        System.out.print("Digite o código do produto: ");
+        int codigo = scanner.nextInt();
+        System.out.print("Digite a quantidade: ");
+        int quantidade = scanner.nextInt();
+
+        for (Produto p : produtos) {
+            if (p.codigo == codigo) {
+                double total = p.valorUnitario * quantidade;
+                System.out.printf("Total: R$%.2f\n", total);
+                definirFormaPagamento(total);
+                return;
+            }
+        }
+        System.out.println("Produto não encontrado.");
+    }
+
+    // Função para definir a forma de pagamento
+    static void definirFormaPagamento(double total) {
+        System.out.println("\nEscolha a forma de pagamento:");
+        System.out.println("1. Pix");
+        System.out.println("2. Cartão (Crédito/Débito)");
+        System.out.println("3. Dinheiro");
+        System.out.print("Opção: ");
+        int opcao = scanner.nextInt();
+
+        switch (opcao) {
+            case 1 -> System.out.println("Mostrando código Pix...");
+            case 2 -> System.out.println("Informe os dados do cartão...");
+            case 3 -> {
+                System.out.print("Valor pago: ");
+                double valorPago = scanner.nextDouble();
+                if (valorPago >= total) {
+                    System.out.printf("Troco: R$%.2f\n", valorPago - total);
+                } else {
+                    System.out.println("Valor insuficiente. Venda não concluída.");
+                }
+            }
+            default -> System.out.println("Opção inválida.");
+        }
+    }
+}
